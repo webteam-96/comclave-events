@@ -372,3 +372,25 @@ html.gsap-on .reveal { transition: none; }
 
 /* line-height bump on testimonial quote */
 .quote blockquote { line-height: 1.5; }
+
+
+/* ===================== Trusted-by: continuous marquee ===================== */
+.trust__inner { position: relative; z-index: 1; }
+.marquee { overflow: hidden; margin-top: clamp(28px, 4vw, 48px);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 5%, #000 95%, transparent); }
+.marquee__track { display: flex; width: max-content; animation: marquee 46s linear infinite; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.tcard {
+  flex: 0 0 auto; width: clamp(310px, 30vw, 396px); margin-right: clamp(16px, 1.6vw, 24px);
+  display: grid; grid-template-columns: 60px 1fr; gap: 16px; align-items: center;
+  background: var(--cream); border: var(--border); border-radius: var(--radius); padding: 20px 22px;
+}
+.tcard__photo { width: 60px; height: 60px; border-radius: 50%; overflow: hidden; border: var(--border); }
+.tcard__photo img { width: 100%; height: 100%; object-fit: cover; }
+.tcard__quote { font-size: 0.92rem; line-height: 1.5; color: var(--ink); font-weight: 600; }
+.tcard__who { margin-top: 8px; font-size: 0.76rem; line-height: 1.35; }
+.tcard__who strong { display: block; color: var(--ink); }
+.tcard__who span { color: #555; }
+@media (prefers-reduced-motion: reduce) { .marquee__track { animation: none; } }
