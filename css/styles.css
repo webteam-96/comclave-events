@@ -323,6 +323,7 @@ html.gsap-on .reveal { transition: none; }
 .hero__sub { font-weight: 500; font-size: clamp(1rem, 1.3vw, 1.16rem); line-height: 1.6; max-width: 46ch; }
 .hero__cta { margin-top: 1.1em; }
 .hero__micro { margin-top: 0.9em; font-weight: 700; font-size: 0.85rem; opacity: 0.8; }
+.hero__announce { margin-top: clamp(26px, 3.6vw, 48px); }
 @media (max-width: 900px) { .hero__band-inner { grid-template-columns: 1fr; } }
 
 .announce__addr { margin-top: 0.6em; font-size: 0.82rem; line-height: 1.5; opacity: 0.78; }
