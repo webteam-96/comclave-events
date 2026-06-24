@@ -5,12 +5,12 @@
 :root {
   --forest: #0D4A3A;
   --forest-2: #0a3b2e;
-  --pink: #F2A6E0;
-  /* light pink (sponsors bg) */
-  --pink-band: #F472C0;
-  /* vivid pink (hero band) */
-  --magenta: #E94BB6;
-  /* magenta pill */
+  --pink: #FB6E4E;
+  /* was pink -> orange/coral */
+  --pink-band: #FB6E4E;
+  /* was vivid pink -> orange/coral */
+  --magenta: #FB6E4E;
+  /* was magenta -> orange/coral */
   --coral: #FB6E4E;
   /* orange-coral sections */
   --cream: #FAF6EF;
