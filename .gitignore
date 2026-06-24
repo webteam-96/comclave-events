@@ -1,0 +1,12 @@
+# Claude Code local settings
+.claude/
+
+# Scratch / working artifacts
+.equiduct_scan/
+.docx_content.txt
+assets/images/err*.txt
+
+# OS / editor cruft
+Thumbs.db
+.DS_Store
+*.swp
