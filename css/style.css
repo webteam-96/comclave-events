@@ -106,8 +106,10 @@ h1, h2, h3, h4, h5 { font-family: var(--ff-head); color: var(--text); font-weigh
   width: 34px; height: 38px; flex: none; display: grid; place-items: center;
   color: var(--gold); font-size: 22px;
 }
-.brand__text { font-family: var(--ff-head); font-weight: 700; color: #fff; font-size: 17px; letter-spacing: .04em; line-height: 1; }
-.brand__text small { display: block; font-size: 9px; letter-spacing: .26em; color: var(--gold); font-weight: 600; margin-top: 3px; }
+.brand__text { display: flex; flex-direction: column; font-family: var(--ff-head); color: #fff; line-height: 1.12; }
+.brand__presents { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+.brand__name { font-size: 18px; font-weight: 800; letter-spacing: .05em; }
+.brand__tag { font-size: 9px; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); font-weight: 600; margin-top: 1px; }
 .nav__links { display: flex; align-items: center; gap: 30px; }
 .nav__links a { font-size: 14.5px; color: var(--muted); font-weight: 500; transition: color .2s; }
 .nav__links a:hover, .nav__links a.is-active { color: #fff; }
@@ -125,12 +127,14 @@ h1, h2, h3, h4, h5 { font-family: var(--ff-head); color: var(--text); font-weigh
     radial-gradient(700px 540px at 6% 8%, rgba(44, 58, 134, 0.30), transparent 62%),
     linear-gradient(180deg, #0a1024 0%, #090d1d 100%);
 }
-.hero::after { /* faint dotted map/grid */
-  content: ""; position: absolute; inset: 0; z-index: 0; opacity: .5;
-  background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1.4px);
-  background-size: 26px 26px;
-  -webkit-mask-image: radial-gradient(70% 70% at 50% 35%, #000 30%, transparent 78%);
-          mask-image: radial-gradient(70% 70% at 50% 35%, #000 30%, transparent 78%);
+.hero::after { /* faint gold grid (finance-grid look from the live site) */
+  content: ""; position: absolute; inset: 0; z-index: 0; opacity: .9;
+  background-image:
+    linear-gradient(rgba(245, 168, 35, .05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 168, 35, .05) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: radial-gradient(80% 80% at 50% 28%, #000 38%, transparent 82%);
+          mask-image: radial-gradient(80% 80% at 50% 28%, #000 38%, transparent 82%);
 }
 .hero__inner { position: relative; z-index: 2; display: grid; grid-template-columns: 1.08fr 1fr; gap: 40px; align-items: center; min-height: 540px; }
 .hero__eyebrow { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 26px; }
@@ -560,3 +564,83 @@ h1, h2, h3, h4, h5 { font-family: var(--ff-head); color: var(--text); font-weigh
 .hero__eventmeta { position: relative; z-index: 2; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 30px; margin: 28px 0 0; color: var(--text); font-weight: 500; font-size: 16px; }
 .hero__eventmeta span { display: inline-flex; align-items: center; gap: 9px; }
 .hero__eventmeta i { color: var(--gold); }
+
+/* ============================================================
+   Visual richness — gold grid background + animated candlesticks
+   ============================================================ */
+
+/* reusable subtle gold grid background for sections */
+.grid-bg { position: relative; }
+.grid-bg::before {
+  content: ""; position: absolute; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(245, 168, 35, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 168, 35, .035) 1px, transparent 1px);
+  background-size: 56px 56px;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+          mask-image: linear-gradient(180deg, transparent, #000 18%, #000 82%, transparent);
+}
+.grid-bg > * { position: relative; z-index: 1; }
+
+/* animated candlestick chart in the hero */
+.hero__chart { position: absolute; left: 0; right: 0; bottom: 0; height: 46%; z-index: 1; pointer-events: none; opacity: .6; }
+.hero__chart svg { width: 100%; height: 100%; display: block; }
+.hero__candles line { stroke: rgba(245, 168, 35, .5); stroke-width: 1.6; }
+.hero__candles rect { fill: rgba(245, 168, 35, .16); stroke: rgba(245, 168, 35, .5); stroke-width: 1; }
+.hero__candles .up rect { fill: rgba(38, 199, 129, .16); stroke: rgba(38, 199, 129, .55); }
+.hero__candles .up line { stroke: rgba(38, 199, 129, .55); }
+.hero__candles > g { transform-origin: 50% 100%; animation: candle-rise .7s cubic-bezier(.2,.8,.2,1) both; }
+.hero__candles > g:nth-child(1){animation-delay:.05s} .hero__candles > g:nth-child(2){animation-delay:.12s}
+.hero__candles > g:nth-child(3){animation-delay:.19s} .hero__candles > g:nth-child(4){animation-delay:.26s}
+.hero__candles > g:nth-child(5){animation-delay:.33s} .hero__candles > g:nth-child(6){animation-delay:.40s}
+.hero__candles > g:nth-child(7){animation-delay:.47s} .hero__candles > g:nth-child(8){animation-delay:.54s}
+.hero__candles > g:nth-child(9){animation-delay:.61s} .hero__candles > g:nth-child(10){animation-delay:.68s}
+.hero__chart-line {
+  fill: none; stroke: var(--gold); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;
+  filter: drop-shadow(0 0 6px rgba(245, 168, 35, .45));
+  stroke-dasharray: 1100; stroke-dashoffset: 1100; animation: chart-draw 3s ease .4s forwards;
+}
+.hero__chart-dot { fill: var(--gold); filter: drop-shadow(0 0 6px rgba(245,168,35,.7)); animation: dot-pulse 2s ease-in-out 3.2s infinite; }
+@keyframes candle-rise { from { transform: scaleY(0); opacity: 0; } to { transform: scaleY(1); opacity: 1; } }
+@keyframes chart-draw { to { stroke-dashoffset: 0; } }
+@keyframes dot-pulse { 0%,100% { r: 4; opacity: 1; } 50% { r: 6.5; opacity: .6; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero__candles > g, .hero__chart-line, .hero__chart-dot { animation: none; }
+  .hero__chart-line { stroke-dashoffset: 0; }
+}
+
+/* ============================================================
+   Micro-interactions
+   ============================================================ */
+html { scroll-behavior: smooth; }
+
+/* animated underline on nav links */
+.nav__links a { position: relative; }
+.nav__links a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -5px; height: 2px;
+  background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .25s ease;
+}
+.nav__links a:hover::after, .nav__links a.is-active::after { transform: scaleX(1); }
+
+/* gold-button shine sweep on hover */
+.btn { position: relative; overflow: hidden; }
+.btn--gold::after {
+  content: ""; position: absolute; top: 0; left: -130%; width: 55%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255, 255, 255, .4), transparent);
+  transform: skewX(-20deg); transition: left .55s ease; pointer-events: none;
+}
+.btn--gold:hover::after { left: 150%; }
+
+/* card depth + image zoom + control hovers */
+.spk, .learn-card, .who-card, .worth-item { transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+.spk:hover, .learn-card:hover, .who-card:hover, .worth-item:hover { box-shadow: 0 18px 42px rgba(0, 0, 0, .34); }
+.spk__photo img { transition: transform .4s ease; }
+.spk:hover .spk__photo img { transform: scale(1.06); }
+.hl-video__play { transition: transform .25s ease, background .25s ease; }
+.hl-video:hover .hl-video__play { transform: translate(-50%, -50%) scale(1.12); }
+.reg-ticket__feature { transition: transform .2s ease, border-color .2s ease; }
+.reg-ticket__feature:hover { transform: translateY(-3px); border-color: var(--line-gold); }
+.partners__item .logo-chip-lg { transition: transform .25s ease, box-shadow .25s ease; }
+.partners__item:hover .logo-chip-lg { transform: translateY(-3px); box-shadow: 0 14px 34px rgba(0, 0, 0, .35); }
+.footer__social a, .spk__li { transition: transform .2s ease, background .2s ease, color .2s ease; }
+.footer__social a:hover, .spk__li:hover { transform: translateY(-2px); }
